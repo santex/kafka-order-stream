@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  generator:
+    build: ./generator
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      TRANSACTIONS_TOPIC: queueing.transactions
+      TRANSACTIONS_PER_SECOND: 1000
+
+  froud-detector:
+    build: ./froud-detector
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      TRANSACTIONS_TOPIC: queueing.transactions
+      LEGIT_TOPIC: streaming.transactions.legit
+      FRAUD_TOPIC: streaming.transactions.fraud
+
+  availability-check:
+    build: ./availability-check
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      TRANSACTIONS_TOPIC: queueing.transactions
+      LEGIT_TOPIC: streaming.transactions.legit
+      FRAUD_TOPIC: streaming.transactions.fraud
+
+  credit-check:
+    build: ./credit-check
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      TRANSACTIONS_TOPIC: queueing.transactions
+      LEGIT_TOPIC: streaming.transactions.legit
+      FRAUD_TOPIC: streaming.transactions.fraud
+
+networks:
+  default:
+    external:
+      name: kafka-network
