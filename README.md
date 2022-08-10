@@ -1,4 +1,11 @@
 
+### Quick Order Simulation with Kafka
+
+#### credit-check + availability + fraud-detection
+
+---
+
+``
 docker network create orders-network
 
 docker-compose -f docker-compose.kafka.yml up -d
@@ -15,3 +22,4 @@ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer --
 
 #docker network rm orders-network
 
+``
